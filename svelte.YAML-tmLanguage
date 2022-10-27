@@ -142,14 +142,14 @@ repository:
     begin: <!--
     end: -->
     captures:
-      0: { name: punctuation.definition.comment.svelte }
+      '0': { name: punctuation.definition.comment.svelte }
     name: comment.block.svelte
     patterns:
     # Component documentation.
     - begin: (@)(component)
       beginCaptures:
-        1: { name: punctuation.definition.keyword.svelte }
-        2: { name: storage.type.class.component.svelte keyword.declaration.class.component.svelte }
+        '1': { name: punctuation.definition.keyword.svelte }
+        '2': { name: storage.type.class.component.svelte keyword.declaration.class.component.svelte }
       end: (?=-->)
       contentName: comment.block.documentation.svelte
       patterns:
@@ -159,7 +159,7 @@ repository:
       # And since the match consumed the line leading to `-->`,
       # the 'block' markdown won't break out of the comment block.
       - match: .*?(?=-->)
-        captures: { 0: { patterns: [ include: text.html.markdown ] } }
+        captures: { '0': { patterns: [ include: text.html.markdown ] } }
       - include: text.html.markdown
     # Validations
     - { match: '\G-?>|<!--(?!>)|<!-(?=-->)|--!>', name: invalid.illegal.characters-not-allowed-here.svelte }
@@ -184,8 +184,8 @@ repository:
     patterns:
     - begin: \{
       end: \}
-      beginCaptures: { 0: { name: punctuation.section.embedded.begin.svelte } }
-      endCaptures:   { 0: { name: punctuation.section.embedded.end.svelte } }
+      beginCaptures: { '0': { name: punctuation.section.embedded.begin.svelte } }
+      endCaptures:   { '0': { name: punctuation.section.embedded.end.svelte } }
       contentName: meta.embedded.expression.svelte source.ts
       patterns:
       # Object literals - usually used within attributes.
@@ -208,9 +208,9 @@ repository:
   special-tags-keywords:
     match: ([#@/:])(else\s+if|[a-z]*)
     captures:
-      1: { name: punctuation.definition.keyword.svelte }
+      '1': { name: punctuation.definition.keyword.svelte }
       # The keyword itself. If others are patched in in the future, they can easily be added here.
-      2: { patterns: [
+      '2': { patterns: [
          { match: if|else\s+if|else, name: keyword.control.conditional.svelte },
          { match: each|key,          name: keyword.control.svelte             },
          { match: await|then|catch,  name: keyword.control.flow.svelte        },
@@ -234,7 +234,7 @@ repository:
       # Variable.
       - begin: \G\s*([_$[:alpha:]][_$[:alnum:]]+)\s*
         end: (?=\=)
-        beginCaptures: { 1: { name: variable.other.constant.svelte } }
+        beginCaptures: { '1': { name: variable.other.constant.svelte } }
       # Expression (starting with "=").
       - begin: (?=\=)
         end: (?=})
@@ -251,7 +251,7 @@ repository:
         patterns: [ include: source.ts ]
       # 'as' token and onwards.
       - begin: (as)
-        beginCaptures: { 1: { name: keyword.control.as.svelte } }
+        beginCaptures: { '1': { name: keyword.control.as.svelte } }
         end: (?=})
         patterns:
         # [] and {} destructuring blocks.
@@ -259,12 +259,12 @@ repository:
         # Key expression.
         - begin: \(
           end: \)|(?=})
-          captures: { 0: { name: meta.brace.round.svelte } }
+          captures: { '0': { name: meta.brace.round.svelte } }
           contentName: meta.embedded.expression.svelte source.ts
           patterns: [ include: source.ts ]
         # Name or index expression.
         - match: (\s*([_$[:alpha:]][_$[:alnum:]]*)\s*)
-          captures: { 1: { name: meta.embedded.expression.svelte source.ts, patterns: [ include: source.ts ] } }
+          captures: { '1': { name: meta.embedded.expression.svelte source.ts, patterns: [ include: source.ts ] } }
         # The comma.
         - { match: ',', name: punctuation.separator.svelte }
 
@@ -275,7 +275,7 @@ repository:
       # Promise expression.
       - begin: \G\s*?(?=\S)
         end: \s+(then)|(?=})
-        endCaptures: { 1: { name: keyword.control.flow.svelte } }
+        endCaptures: { '1': { name: keyword.control.flow.svelte } }
         contentName: meta.embedded.expression.svelte source.ts
         patterns: [ include: source.ts ]
       # Then expression.
@@ -290,7 +290,7 @@ repository:
       patterns:
       # Variables.
       - match: '[_$[:alpha:]][_$[:alnum:]]*'
-        captures: { 0: { name: meta.embedded.expression.svelte source.ts, patterns: [ include: source.ts ] } }
+        captures: { '0': { name: meta.embedded.expression.svelte source.ts, patterns: [ include: source.ts ] } }
       # The commas.
       - { match: ',', name: punctuation.separator.svelte }
 
@@ -298,10 +298,10 @@ repository:
   special-tags-void:
     begin: ({)\s*((?:[@:])(else\s+if|[a-z]*))
     beginCaptures:
-      1: { name: punctuation.definition.block.begin.svelte }
-      2: { patterns: [ include: '#special-tags-keywords' ] }
+      '1': { name: punctuation.definition.block.begin.svelte }
+      '2': { patterns: [ include: '#special-tags-keywords' ] }
     end: \}
-    endCaptures: { 0: { name: punctuation.definition.block.end.svelte } }
+    endCaptures: { '0': { name: punctuation.definition.block.end.svelte } }
     name: meta.special.$3.svelte
     patterns: [ include: '#special-tags-modes' ]
 
@@ -317,9 +317,9 @@ repository:
     end: (})
     name: meta.special.$3.svelte meta.special.start.svelte
     beginCaptures:
-      1: { name: punctuation.definition.block.begin.svelte }
-      2: { patterns: [ include: '#special-tags-keywords' ] }
-    endCaptures: { 0: { name: punctuation.definition.block.end.svelte } }
+      '1': { name: punctuation.definition.block.begin.svelte }
+      '2': { patterns: [ include: '#special-tags-keywords' ] }
+    endCaptures: { '0': { name: punctuation.definition.block.end.svelte } }
     patterns: [ include: '#special-tags-modes' ]
 
   special-tags-block-end:
@@ -329,10 +329,10 @@ repository:
     end: (})
     name: meta.special.$3.svelte meta.special.end.svelte
     beginCaptures:
-      1: { name: punctuation.definition.block.begin.svelte }
-      2: { patterns: [ include: '#special-tags-keywords' ] }
+      '1': { name: punctuation.definition.block.begin.svelte }
+      '2': { patterns: [ include: '#special-tags-keywords' ] }
     endCaptures:
-      1: { name: punctuation.definition.block.end.svelte }
+      '1': { name: punctuation.definition.block.end.svelte }
 
   # ------------
   #  ATTRIBUTES
@@ -347,7 +347,7 @@ repository:
   attributes-interpolated:
     begin: (?<!:|=)\s*({)
     end: (\})
-    captures: { 1: { name: entity.other.attribute-name.svelte } }
+    captures: { '1': { name: entity.other.attribute-name.svelte } }
     contentName: meta.embedded.expression.svelte source.ts
     patterns: [ include: source.ts ]
 
@@ -356,7 +356,7 @@ repository:
   attributes-keyvalue:
     begin: ((?:--)?[_$[:alpha:]][_\-$[:alnum:]]*)
     beginCaptures:
-      0:
+      '0':
         patterns:
         # Matches if the key is a `--css-variable` attribute.
         - match: --.*
@@ -368,7 +368,7 @@ repository:
     name: 'meta.attribute.$1.svelte'
     patterns:
     - begin: '='
-      beginCaptures: { 0: { name: punctuation.separator.key-value.svelte } }
+      beginCaptures: { '0': { name: punctuation.separator.key-value.svelte } }
       end: (?<=[^\s=])(?!\s*=)|(?=/?>)
       patterns: [include: '#attributes-value']
 
@@ -380,10 +380,10 @@ repository:
     # Units, meaning digit characters and an optional unit string. e.g. `15px`
     - match: (?:(['"])([0-9._]+[\w%]{,4})(\1))|(?:([0-9._]+[\w%]{,4})(?=\s|/?>))
       captures:
-        1: { name: punctuation.definition.string.begin.svelte }
-        2: { name: constant.numeric.decimal.svelte }
-        3: { name: punctuation.definition.string.end.svelte }
-        4: { name: constant.numeric.decimal.svelte }
+        '1': { name: punctuation.definition.string.begin.svelte }
+        '2': { name: constant.numeric.decimal.svelte }
+        '3': { name: punctuation.definition.string.end.svelte }
+        '4': { name: constant.numeric.decimal.svelte }
     # Unquoted strings.
     - match: ([^\s"'=<>`/]|/(?!>))+
       name: string.unquoted.svelte
@@ -391,8 +391,8 @@ repository:
     # Quoted strings.
     - begin: (['"])
       end: \1
-      beginCaptures: { 0: { name: punctuation.definition.string.begin.svelte } }
-      endCaptures:   { 0: { name: punctuation.definition.string.end.svelte } }
+      beginCaptures: { '0': { name: punctuation.definition.string.begin.svelte } }
+      endCaptures:   { '0': { name: punctuation.definition.string.end.svelte } }
       name: string.quoted.svelte
       patterns: [ include: '#interpolation' ]
 
@@ -436,11 +436,11 @@ repository:
     # If something is added to attributes-directives-keywords, it must be added to the begin-regex, too.
     begin: (?<!<)(on|use|bind|transition|in|out|animate|let|class|style)(:)(?:((?:--)?[_$[:alpha:]][_\-$[:alnum:]]*(?=\s*=))|((?:--)?[_$[:alpha:]][_\-$[:alnum:]]*))((\|\w+)*)
     beginCaptures:
-      1: { patterns: [ include: '#attributes-directives-keywords' ] }
-      2: { name: punctuation.definition.keyword.svelte }
-      3: { patterns: [ include: '#attributes-directives-types-assigned' ] }
-      4: { patterns: [ include: '#attributes-directives-types' ] }
-      5: { patterns: [
+      '1': { patterns: [ include: '#attributes-directives-keywords' ] }
+      '2': { name: punctuation.definition.keyword.svelte }
+      '3': { patterns: [ include: '#attributes-directives-types-assigned' ] }
+      '4': { patterns: [ include: '#attributes-directives-types' ] }
+      '5': { patterns: [
            { match: '\w+', name: support.function.svelte },
            { match: '\|', name: punctuation.separator.svelte }
          ]}
@@ -448,7 +448,7 @@ repository:
     name: meta.directive.$1.svelte
     patterns:
     - begin: '='
-      beginCaptures: { 0: { name: punctuation.separator.key-value.svelte } }
+      beginCaptures: { '0': { name: punctuation.separator.key-value.svelte } }
       end: (?<=[^\s=])(?!\s*=)|(?=/?>)
       patterns: [include: '#attributes-value']
 
@@ -472,9 +472,9 @@ repository:
     # Svelte (`svelte:<type>`) elements.
     - match: '(svelte)(:)([a-z][\w0-9:-]*)'
       captures:
-        1: { name: keyword.control.svelte }
-        2: { name: punctuation.definition.keyword.svelte }
-        3: { name: entity.name.tag.svelte }
+        '1': { name: keyword.control.svelte }
+        '2': { name: punctuation.definition.keyword.svelte }
+        '3': { name: entity.name.tag.svelte }
     # Slot.
     - { match: 'slot', name: keyword.control.svelte }
     # Components.
@@ -495,7 +495,7 @@ repository:
   tags-lang-start-attributes:
     begin: \G
     end: (?=/>)|>
-    endCaptures: { 0: { name: punctuation.definition.tag.end.svelte } }
+    endCaptures: { '0': { name: punctuation.definition.tag.end.svelte } }
     name: meta.tag.start.svelte
     patterns: [ include: '#attributes' ]
 
@@ -503,18 +503,18 @@ repository:
   tags-start-node:
     match: (<)([^/\s>/]*)
     captures:
-      1: { name: punctuation.definition.tag.begin.svelte }
-      2: { patterns: [ include: '#tags-name' ] }
+      '1': { name: punctuation.definition.tag.begin.svelte }
+      '2': { patterns: [ include: '#tags-name' ] }
     name: meta.tag.start.svelte
 
   # Matches tag end nodes.
   tags-end-node:
     match: (</)(.*?)\s*(>)|(/>)
     captures:
-      1: { name: meta.tag.end.svelte punctuation.definition.tag.begin.svelte }
-      2: { name: meta.tag.end.svelte, patterns: [ include: '#tags-name' ] }
-      3: { name: meta.tag.end.svelte punctuation.definition.tag.end.svelte }
-      4: { name: meta.tag.start.svelte punctuation.definition.tag.end.svelte }
+      '1': { name: meta.tag.end.svelte punctuation.definition.tag.begin.svelte }
+      '2': { name: meta.tag.end.svelte, patterns: [ include: '#tags-name' ] }
+      '3': { name: meta.tag.end.svelte punctuation.definition.tag.end.svelte }
+      '4': { name: meta.tag.start.svelte punctuation.definition.tag.end.svelte }
 
   # -- TAG TYPES
 
@@ -522,8 +522,8 @@ repository:
   tags-lang:
     begin: <(script|style|template)
     end: </\1\s*>|/>
-    beginCaptures: { 0: { patterns: [ include: '#tags-start-node' ] } }
-    endCaptures: { 0: { patterns: [ include: '#tags-end-node' ] } }
+    beginCaptures: { '0': { patterns: [ include: '#tags-start-node' ] } }
+    endCaptures: { '0': { patterns: [ include: '#tags-end-node' ] } }
     name: meta.$1.svelte
     patterns:
     # Tags with a language specified.
@@ -541,10 +541,10 @@ repository:
   tags-void:
     begin: (<)(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)(?=\s|/?>)
     beginCaptures:
-      1: { name: punctuation.definition.tag.begin.svelte }
-      2: { name: entity.name.tag.svelte }
+      '1': { name: punctuation.definition.tag.begin.svelte }
+      '2': { name: entity.name.tag.svelte }
     end: /?>
-    endCaptures: { 0: { name: punctuation.definition.tag.begin.svelte } }
+    endCaptures: { '0': { name: punctuation.definition.tag.begin.svelte } }
     name: meta.tag.void.svelte
     patterns: [ include: '#attributes' ]
 
@@ -554,9 +554,9 @@ repository:
   tags-general-start:
     begin: (<)([^/\s>/]*)
     end: (/?>)
-    beginCaptures: { 0: { patterns: [ include: '#tags-start-node' ] } }
+    beginCaptures: { '0': { patterns: [ include: '#tags-start-node' ] } }
     endCaptures:
-      1: { name: meta.tag.start.svelte punctuation.definition.tag.end.svelte }
+      '1': { name: meta.tag.start.svelte punctuation.definition.tag.end.svelte }
     name: meta.scope.tag.$2.svelte
     patterns:
     - include: '#tags-start-attributes'
@@ -565,10 +565,10 @@ repository:
     begin: (</)([^/\s>]*)
     end: (>)
     beginCaptures:
-      1: { name: meta.tag.end.svelte punctuation.definition.tag.begin.svelte }
-      2: { name: meta.tag.end.svelte, patterns: [ include: '#tags-name' ] }
+      '1': { name: meta.tag.end.svelte punctuation.definition.tag.begin.svelte }
+      '2': { name: meta.tag.end.svelte, patterns: [ include: '#tags-name' ] }
     endCaptures:
-      1: { name: meta.tag.end.svelte punctuation.definition.tag.end.svelte }
+      '1': { name: meta.tag.end.svelte punctuation.definition.tag.end.svelte }
     name: meta.scope.tag.$2.svelte
 
 ...
