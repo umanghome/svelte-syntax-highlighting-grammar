@@ -222,13 +222,13 @@ repository:
   special-tags-modes:
     patterns:
     # Expressions or simple values.
-    - begin: (?<=(if|key|then|catch|html).*?)\G
+    - begin: (if|key|then|catch|html)\K\G
       end: (?=})
       name: meta.embedded.expression.svelte source.ts
       patterns: [ include: source.ts ]
 
     # Const.
-    - begin: (?<=const.*?)\G
+    - begin: (?<=const)\G
       end: (?=})
       patterns:
       # Variable.
@@ -241,7 +241,7 @@ repository:
         patterns: [ include: source.ts ]
 
     # Each.
-    - begin: (?<=each.*?)\G
+    - begin: (?<=each)\G
       end: (?=})
       patterns:
       # Start expression.
@@ -269,7 +269,7 @@ repository:
         - { match: ',', name: punctuation.separator.svelte }
 
     # Await.
-    - begin: (?<=await.*?)\G
+    - begin: (?<=await)\G
       end: (?=})
       patterns:
       # Promise expression.
@@ -285,7 +285,7 @@ repository:
         patterns: [ include: source.ts ]
 
     # Debug.
-    - begin: (?<=debug.*?)\G
+    - begin: (?<=debug)\G
       end: (?=})
       patterns:
       # Variables.
@@ -411,10 +411,10 @@ repository:
   attributes-directives-types:
     patterns:
     # If other keywords are patched in in the future, they can easily be added here.
-    - { match: '(?<=(on):).*$',                            name: entity.name.type.svelte   }
-    - { match: '(?<=(bind):).*$',                          name: variable.parameter.svelte }
-    - { match: '(?<=(use|transition|in|out|animate):).*$', name: variable.function.svelte  }
-    - { match: '(?<=(let|class|style):).*$',               name: variable.parameter.svelte }
+    - { match: '(?<=(on):)',                            name: entity.name.type.svelte   }
+    - { match: '(?<=(bind):)',                          name: variable.parameter.svelte }
+    - { match: '(use|transition|in|out|animate)\K:', name: variable.function.svelte  }
+    - { match: '(let|class|style)\K:',               name: variable.parameter.svelte }
 
   # For directives that may be better suited using different scopes if assigned to something.
   # e.g. `class:var={var}` is different to `class:var`.
