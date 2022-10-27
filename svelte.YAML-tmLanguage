@@ -63,10 +63,10 @@ injections:
     patterns: [{begin: '(?<=>)(?!</)', end: '(?=</)', name: meta.embedded.block.svelte,
     contentName: source.css.less, patterns: [{ include: source.css.less }]}]
 
-  # PostCSS | 'postcss' | 'source.css.postcss'
+  # PostCSS | 'postcss' | 'source.postcss'
   'L:meta.style.svelte meta.lang.postcss - (meta source)':
     patterns: [{begin: '(?<=>)(?!</)', end: '(?=</)', name: meta.embedded.block.svelte,
-    contentName: source.css.postcss, patterns: [{ include: source.css.postcss }]}]
+    contentName: source.postcss, patterns: [{ include: source.postcss }]}]
 
   # Default (CSS)
   'L:meta.style.svelte - meta.lang - (meta source)':
